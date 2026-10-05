@@ -1,4 +1,154 @@
-<!doctype html>
+<!doctype html><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatwait</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  color:#111;
+}
+header{
+  height:60px;
+  background:#111;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  font-size:22px;
+  font-weight:bold;
+}
+#voice{
+  background:#333;
+  color:white;
+  border:0;
+  border-radius:20px;
+  padding:8px 12px;
+}
+#chat{
+  padding:15px;
+  min-height:calc(100vh - 125px);
+  overflow-y:auto;
+}
+.msg{
+  max-width:80%;
+  padding:12px 15px;
+  margin:10px 0;
+  border-radius:18px;
+  line-height:1.6;
+}
+.user{
+  background:#111;
+  color:white;
+  margin-right:auto;
+}
+.ai{
+  background:white;
+  border:1px solid #ddd;
+  margin-left:auto;
+}
+footer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:white;
+  padding:10px;
+  display:flex;
+  gap:8px;
+  border-top:1px solid #ddd;
+}
+#input{
+  flex:1;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:20px;
+  font-size:16px;
+}
+#send{
+  border:0;
+  background:#111;
+  color:white;
+  border-radius:20px;
+  padding:0 18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <span>Chatwait</span>
+  <button id="voice">🔊 الصوت</button>
+</header>
+
+<main id="chat">
+  <div class="msg ai">مرحباً 👋 أنا Chatwait. اكتبلي أي شي لنحكي سوا.</div>
+</main>
+
+<footer>
+  <input id="input" placeholder="اكتب رسالتك..." autocomplete="off">
+  <button id="send">إرسال</button>
+</footer>
+
+<script>
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+const send = document.getElementById("send");
+const voiceBtn = document.getElementById("voice");
+
+let voiceOn = true;
+
+function addMessage(text, type){
+  const div = document.createElement("div");
+  div.className = "msg " + type;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function getReply(text){
+  const t = text.toLowerCase();
+
+  if(t.includes("مرحبا") || t.includes("هلا") || t.includes("اهلا"))
+    return "أهلاً وسهلاً فيك 🌷 كيف فيني ساعدك؟";
+
+  if(t.includes("كيفك") || t.includes("شلونك"))
+    return "تمام الحمد لله 😄 وإنت كيفك؟";
+
+  if(t.includes("اسمك"))
+    return "أنا Chatwait 🤖 مساعدك للدردشة.";
+
+  if(t.includes("شكرا") || t.includes("شكر"))
+    return "العفو ❤️ أنا بالخدمة.";
+
+  if(t.includes("بحبك"))
+    return "وأنا مبسوط إني عم أحكي معك ❤️";
+
+  if(t.includes("مين انت"))
+    return "أنا Chatwait، مساعد دردشة صوتي.";
+
+  return "فهمت عليك 😊 احكيلي أكتر، أنا عم اسمعك.";
+}
+
+function speak(text){
+  if(!voiceOn || !("speechSynthesis" in window)) return;
+
+  speechSynthesis.cancel();
+
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ar-SA";
+  u.rate = 0.9;
+  u.pitch = 0.8;
+
+  const voices = speechSynthesis.getVoices();
+
+  const arab
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
